@@ -1,0 +1,84 @@
+<html>
+<head>
+	<title>Battle Scene Pokemon</title>
+
+    <link rel="stylesheet" href='./css/style.css'> 
+
+</head>
+<body>
+
+	<div id="powerBackground" style="border: 2px solid rgb(250,250,250); width: 300px; height: 50px; border-radius: 8px; position: absolute; top: 70px; margin-left:auto;margin-right:auto;"></div>
+	<div id="powerBar" style="border :2px solid rgb(250,250,250); width: 0px; height: 50px; border-radius: 8px; position: absolute; top: 70px; margin-left:auto;margin-right:auto; background-color:rgb(60,200,20);"></div>
+
+	<video controls loop muted id="video" autoplay style="display:none">
+   <source src="video/p.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+  </video>
+
+	<!-- THREE.min.js -->
+	<script type="text/javascript" src="./js/THREE-min.js"></script>
+	<script type="text/javascript" src="./js/PointerLockControls.js"></script>
+	<script type="text/javascript" src="./js/ammo.js"></script>
+	<script type="text/javascript" src="./js/physi.js"></script>
+	<script type="text/javascript" src="./js/physijs_worker.js"></script>
+
+	<!-- video -->
+	<script src="js/src/CopyShader.js"></script>
+
+	<script src="js/src/EffectComposer.js"></script>
+	<script src="js/src/RenderPass.js"></script>
+	<script src="js/src/MaskPass.js"></script>
+	<script src="js/src/ShaderPass.js"></script>
+   	<script id="fragmentShader" type="x-shader/x-fragment">
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	uniform float time;
+	uniform vec2 resolution;
+
+	varying vec2 vUv;
+
+	void main( void ) {
+
+		vec2 position = -1.0 + 2.0 * vUv;
+
+		float red = abs( sin( position.x * position.y + time / 5.0 ) );
+		float green = abs( sin( position.x * position.y + time / 4.0 ) );
+		float blue = abs( sin( position.x * position.y + time / 3.0 ) );
+		gl_FragColor = vec4( red, green, blue, 1.0 );
+
+	}
+
+</script>
+<script id="vertexShader" type="x-shader/x-vertex">
+
+	varying vec2 vUv;
+
+	void main()
+	{
+		vUv = uv;
+		vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+		gl_Position = projectionMatrix * mvPosition;
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+</script>
+
+
+
+
+    <!-- Script de la scene -->
+    <script type="text/javascript" src="./js/src/event.js"></script>
+    <script type="text/javascript" src="./js/src/arenaCreator.js"></script>
+	<script type="text/javascript" src="./js/src/buildingCreator.js"></script>
+    <script type="text/javascript" src="./js/src/pokeball.js"></script>
+    <script type="text/javascript" src="./js/src/cameraFirstPerson.js"></script>
+    <script type="text/javascript" src="./js/src/main.js"></script>
+
+
+    
+
+
+
+</body>
+</html>
